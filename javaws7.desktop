@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=javaws7
+Comment=Connect to an Xpra session
+Exec=/usr/java/jdk1.7.0_80/jre/bin/javaws %u
+Icon=xpra
+Terminal=false
+NoDisplay=false
+Type=Application
+StartupNotify=false
+Categories=Network;
+MimeType=application/x-java-jnlp-file;
