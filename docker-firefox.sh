@@ -1,5 +1,22 @@
 #!/bin/bash
-set -x
+set +x
+
+if [ ! -x /usr/bin/xpra ]
+then
+	echo "${0}: sorry - need a program named xpra"
+	exit 1
+fi
+if [ ! -x /usr/bin/docker ]
+then
+	echo "${0}: sorry - need a program named docker"
+	exit 2
+fi
+rc=$(docker ps >/dev/null 2>&1)
+if [ $? -ne 0 ]
+then
+	echo "${0}: cannot connect to docker envirnoment"
+	exit 3
+fi
 
 runner=bladefox
 docker images bladefox|grep -q bladefox
@@ -12,6 +29,9 @@ then
 	if [ -f Dockerfile -a -f docker-firefox.sh -a -f jre-8u131-linux-i586.tar.gz ]
 	then
 		docker build . --tag bladecenter
+	else
+		echo "${0}: missing files - cannot build container"
+		exit 4
 	fi
     fi
 fi
