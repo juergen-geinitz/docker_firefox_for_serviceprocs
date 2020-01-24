@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=javaws8
+Comment=java 8
+Exec=/usr/java/jre1.8.0.131/bin/javaws %u
+Icon=xpra
+Terminal=false
+NoDisplay=false
+Type=Application
+StartupNotify=false
+Categories=Network;
+MimeType=application/x-java-jnlp-file;
