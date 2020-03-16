@@ -5,6 +5,9 @@ trap "rm -f $tmp_file" 0 1 2 5 15
 
 setjavato () {
 	case $1 in
+	0)
+		L=/usr/java/jre/lib/i386/libnpjp2.so
+		;;
 	6)
 		L=/usr/java/jdk1.6.0_45/jre/lib/i386/
 		;;
@@ -21,9 +24,10 @@ setjavato () {
 #
 dialog --menu "Firefox java version plugin selector" \
 	15 72 \
-	3 \
+	5 \
+	"0" "default jre(for DRAC8)" \
 	"6" "java version 6" \
-	"7" "java version 7" \
+	"7" "java version 7 (for DRAC7)" \
 	"8" "java version 8" \
 	2> $tmp_file
 case $? in
@@ -40,4 +44,5 @@ case $? in
 		;;
 esac
 
-firefox &
+echo "starting firefox"
+firefox 

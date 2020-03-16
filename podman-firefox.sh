@@ -2,6 +2,11 @@
 set -x
 
 DOCKER=podman
+if [ "$1" = "-docker" ]
+then
+	DOCKER=docker
+	shift
+fi
 if [ ! -x /usr/bin/xpra ]
 then
 	echo "${0}: sorry - need a program named xpra"
@@ -9,7 +14,7 @@ then
 fi
 if [ ! -x $(which $DOCKER) ]
 then
-	echo "${0}: sorry - need a program named docker"
+	echo "${0}: sorry - need a program named ${DOCKER}"
 	exit 2
 fi
 rc=$($DOCKER ps >/dev/null 2>&1)

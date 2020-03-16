@@ -59,9 +59,9 @@ docker run --detach -it \
 	--volume /etc/timezone:/etc/timezoneXX:ro \
 	$runner "$@"
 
-while ! nc -z 172.30.200.2 30000 ; do
+while ! nc -z 172.17.0.2 30000 ; do
 	sleep 1
 	echo "$0: waiting for a running fox"
 done
 
-exec xpra attach tcp:172.30.200.2:30000
+exec xpra attach tcp:172.17.0.2:30000

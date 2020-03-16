@@ -16,8 +16,12 @@ FROM debian:stretch-slim
 ENV LANG C.UTF-8
 
 RUN true \
+	&& echo "$0 add i386 arch" \
 	&& dpkg --add-architecture i386 \
+	&& echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
+	&& echo "$0 update"  \
 	&& apt-get update \
+	&& echo "$0 install" \
 	&& apt-get install -y --install-recommends \
 		bzip2:i386 \
 		unzip:i386 \
@@ -29,6 +33,10 @@ RUN true \
 		libxinerama1 \
 		apt-utils \
 		vim \
+		telnet \
+		tcpdump \
+		socat \
+		netcat-openbsd \
    		firefox-esr:i386 x11-apps:i386 \
 		xterm:i386 \
 		x11-utils:i386 \
@@ -43,6 +51,7 @@ RUN true \
 		ttf-dejavu ttf-liberation libxtst6:i386 \
 		libnss3-tools:i386 \
 		xpra:i386 \
+		dialog:i386 \
 	&& apt-get -y clean all \
 	&& mkdir -p /home && chmod 777 /home \
 	&& echo 'search office.denic.de adm.denic.de rz.denic.de denic.de' > /etc/resolvA.conf \
@@ -59,6 +68,7 @@ ADD jre-8u131-linux-i586.tar.gz /usr/java
 RUN ln -s /usr/java/jre1.8.0_131 /usr/java/default 
 ADD jdk-7u80-linux-i586.tar.gz /usr/java
 #RUN ln -s /usr/java/jdk1.7.0_80 /usr/java/default
+#RUN ln -s /usr/java/jdk1.6.0_45 /usr/java/default
 
 RUN true \
 	; if [ -d /usr/java/default/jre ] ; then ln -s /usr/java/default/jre /usr/java/jre; else ln -s /usr/java/default /usr/java/jre; fi \
@@ -67,9 +77,14 @@ ADD startmeup.sh /
 ADD root_CA.pem /
 ADD infs_CA.pem /
 ADD firefox_profile.tgz /home/.mozilla/firefox
+ADD firfoxjavaselector.sh /
 ADD root_dot_java.tgz   /
 ADD javaws7.desktop /usr/share/applications/
+ADD javaws.desktop /usr/share/applications/
+ADD javaws8.desktop /usr/share/applications/
+ADD javaws6.desktop /usr/share/applications/
 ADD index.html   /
+ADD tunnerlbohrer.sh /
 RUN chmod 755 /startmeup.sh
 
 

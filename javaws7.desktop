@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=javaws7
-Comment=Connect to an Xpra session
-Exec=/usr/java/jdk1.7.0_80/jre/bin/javaws %u
+Comment=java7
+Exec=/usr/java/jdk1.7.0_80/bin/javaws %u
 Icon=xpra
 Terminal=false
 NoDisplay=false
