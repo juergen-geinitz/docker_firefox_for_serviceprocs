@@ -7,6 +7,7 @@
 ##FROM scratch
 ##ADD rootfs.tar.xz /
 FROM debian:stretch-slim
+#FROM debian:buster-slim
 
 # A few problems with compiling Java from source:
 #  1. Oracle.  Licensing prevents us from redistributing the official JDK.
@@ -15,6 +16,7 @@ FROM debian:stretch-slim
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
 
+ADD mysources.list /etc/apt/sources.list
 RUN true \
 	&& echo "$0 add i386 arch" \
 	&& dpkg --add-architecture i386 \
@@ -61,8 +63,10 @@ RUN true \
 
 #	&& rm -rf /var/lib/apt/lists/*
 
-ADD jdk-6u45-linux-i586.bin /usr/java/jdk6installer
-RUN bash /usr/java/jdk6installer && /bin/rm /usr/java/jdk6installer && mv /jdk* /usr/java
+#ADD jdk-6u45-linux-i586.bin /usr/java/jdk6installer
+#RUN bash /usr/java/jdk6installer && /bin/rm /usr/java/jdk6installer && mv /jdk* /usr/java
+ADD jdk1.6.0_45.tar.gz /usr/java/
+RUN cd /usr/java ; ls -al ; pwd 
 
 ADD jre-8u131-linux-i586.tar.gz /usr/java
 RUN ln -s /usr/java/jre1.8.0_131 /usr/java/default 
